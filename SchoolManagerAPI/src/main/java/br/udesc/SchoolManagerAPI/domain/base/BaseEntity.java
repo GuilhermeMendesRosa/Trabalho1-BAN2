@@ -20,5 +20,12 @@ public abstract class BaseEntity {
     @Column(insertable = false, updatable = false)
     private Long id;
 
+    @Version
+    private Integer version;
 
+    @CreationTimestamp
+    private Date createdAt;
+
+    @UpdateTimestamp
+    private Date updatedAt;
 }
