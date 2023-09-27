@@ -31,8 +31,12 @@ export class StudentService {
     return this.http.get("/api/student/" + id);
   }
 
-  report(): Observable<any> {
-    return this.http.get<any>("/api/report/student");
+  getStudentClassSubjectInfoReport(): Observable<any> {
+    return this.http.get<any>("/api/report/students-class-info");
+  }
+
+  getNotEnrolledStudentsReport(): Observable<any> {
+    return this.http.get<any>("/api/report/students-not-enrolled");
   }
 
 }

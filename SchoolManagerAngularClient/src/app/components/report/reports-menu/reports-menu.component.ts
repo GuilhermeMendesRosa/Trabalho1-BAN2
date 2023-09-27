@@ -21,8 +21,15 @@ export class ReportsMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  generateStudentReport() {
-    this.studentService.report().subscribe(content => {
+  generateStudentClassSubjectInfo() {
+    this.studentService.getStudentClassSubjectInfoReport().subscribe(content => {
+      const filename = 'report.txt';
+      this.reportService.createTxtFile(content['report'], filename);
+    })
+  }
+
+  generateNotEnrolledStudentsReport() {
+    this.studentService.getNotEnrolledStudentsReport().subscribe(content => {
       const filename = 'report.txt';
       this.reportService.createTxtFile(content['report'], filename);
     })
