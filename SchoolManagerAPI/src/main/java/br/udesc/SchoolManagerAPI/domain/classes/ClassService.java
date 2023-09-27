@@ -8,6 +8,7 @@ import br.udesc.SchoolManagerAPI.utils.SchoolManagerUtils;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class ClassService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<ClassDTO> findAll() {
         List<ClassDTO> classDTOS = this.classRepository.findAll()
                 .stream()
@@ -55,6 +57,7 @@ public class ClassService {
         return classDTO;
     }
 
+    @Transactional(readOnly = true)
     public String report() {
         String name = "Número de Alunos por Categoria Acadêmica";
         int colums = 2;

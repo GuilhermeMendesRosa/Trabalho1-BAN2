@@ -8,6 +8,7 @@ import br.udesc.SchoolManagerAPI.utils.SchoolManagerUtils;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +47,13 @@ public class StudentService {
         this.studentRepository.save(student);
     }
 
+    @Transactional(readOnly = true)
     public List<ListStudentDTO> listStudents() {
         List<ListStudentDTO> listStudentDTOs = this.studentRepository.findAll().stream().map(student -> new ListStudentDTO(student)).toList();
         return listStudentDTOs;
     }
 
+    @Transactional(readOnly = true)
     public String getStudentClassSubjectInfoReport() {
         String name = "Lista de Alunos por Turma e Disciplina";
         int colums = 3;
