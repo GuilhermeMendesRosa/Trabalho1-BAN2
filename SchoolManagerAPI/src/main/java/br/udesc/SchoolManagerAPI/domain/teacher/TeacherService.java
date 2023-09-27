@@ -10,6 +10,7 @@ import br.udesc.SchoolManagerAPI.utils.SchoolManagerUtils;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class TeacherService {
         this.teacherRepository.save(teacher);
     }
 
+    @Transactional(readOnly = true)
     public List<TeacherDTO> findNoManagingTeachers() {
         List<TeacherDTO> teacherDTOS = this.teacherRepository.findNoManagingTeachers()
                 .stream()
@@ -39,6 +41,7 @@ public class TeacherService {
         return teacherDTOS;
     }
 
+    @Transactional(readOnly = true)
     public List<ListTeacherDTO> listAll() {
         List<ListTeacherDTO> listTeacherDTOS = this.teacherRepository.findAll()
                 .stream()
@@ -48,6 +51,7 @@ public class TeacherService {
         return listTeacherDTOS;
     }
 
+    @Transactional(readOnly = true)
     public ListTeacherDTO findById(Long id) {
         Teacher teacher = this.teacherRepository.findById(id).get();
         ListTeacherDTO listTeacherDTO = new ListTeacherDTO(teacher);
@@ -55,6 +59,7 @@ public class TeacherService {
         return listTeacherDTO;
     }
 
+    @Transactional(readOnly = true)
     public String report() {
         String name = "Lista de Professores e Turmas que Eles Gerenciam";
         int colums = 2;
