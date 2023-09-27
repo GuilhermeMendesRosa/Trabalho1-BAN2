@@ -1,5 +1,6 @@
 package br.udesc.SchoolManagerAPI.domain.student;
 
+import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import br.udesc.SchoolManagerAPI.domain.classes.Class;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,15 +9,10 @@ import lombok.*;
 @Entity(name = "Student")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-public class Student {
+public class Student extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(insertable = false, updatable = false)
-    private Long id;
     private String name;
     @ManyToOne
     @JoinColumn(name = "class_id", nullable = true)

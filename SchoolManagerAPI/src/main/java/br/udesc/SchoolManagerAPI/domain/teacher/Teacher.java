@@ -1,5 +1,6 @@
 package br.udesc.SchoolManagerAPI.domain.teacher;
 
+import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import br.udesc.SchoolManagerAPI.domain.classes.Class;
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
 import jakarta.persistence.*;
@@ -11,18 +12,16 @@ import java.util.List;
 @Entity(name = "Teacher")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(insertable = false, updatable = false)
-    private Long id;
+public class Teacher extends BaseEntity {
+
     private String name;
+
     @ManyToMany
     @JoinColumn(name = "subject_id", nullable = false)
     private List<Subject> subjects;
+
     @OneToOne
     @JoinColumn(name = "managed_class_id", nullable = true)
     private Class managedClass;

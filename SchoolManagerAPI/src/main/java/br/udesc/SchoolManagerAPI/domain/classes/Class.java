@@ -1,5 +1,6 @@
 package br.udesc.SchoolManagerAPI.domain.classes;
 
+import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import br.udesc.SchoolManagerAPI.domain.classes.dto.ClassDTO;
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
 import br.udesc.SchoolManagerAPI.domain.teacher.Teacher;
@@ -12,21 +13,19 @@ import java.util.List;
 @Entity(name = "Class")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-public class Class {
+public class Class extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(insertable = false, updatable = false)
-    private Long id;
     private String name;
+
     @Enumerated(EnumType.STRING)
     private AcademicCategoryEnum academicCategory;
+
     @OneToOne
     @JoinColumn(name = "teacher_manager_id", nullable = true)
     private Teacher teacherManager;
+
     @ManyToMany
     @JoinColumn(name = "subject_id", nullable = false)
     private List<Subject> subjects;

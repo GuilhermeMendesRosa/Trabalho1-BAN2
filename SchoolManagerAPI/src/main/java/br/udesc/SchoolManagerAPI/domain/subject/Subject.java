@@ -1,6 +1,7 @@
 package br.udesc.SchoolManagerAPI.domain.subject;
 
 
+import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,14 +9,9 @@ import lombok.*;
 @Entity(name = "Subject")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-public class Subject {
+public class Subject extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(insertable = false, updatable = false)
-    private Long id;
     private String name;
 }
