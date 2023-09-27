@@ -4,24 +4,27 @@ import java.util.List;
 
 public class SchoolManagerUtils {
 
-    public static String buildReport(String reportName, List<Object[]> rows, int colums) {
+    private static final String DELIMITER = "-------------------------------------------";
+
+    public static String buildReport(String reportName, List<Object[]> rows, int columns) {
         StringBuilder reportContent = new StringBuilder(reportName);
         reportContent.append("\n");
-        reportContent.append("-------------------------------------------");
+        reportContent.append(DELIMITER);
         reportContent.append("\n");
 
-        for (Object[] obj : rows) {
-            for (int i = 0; i < colums; i++) {
-                if (i != colums - 1) {
-                    reportContent.append(obj[i]).append(" - ");
-                } else {
-                    reportContent.append(obj[i]);
+        for (Object[] row : rows) {
+            for (int i = 0; i < columns; i++) {
+                reportContent.append(row[i]);
+
+                boolean isLastElement = i >= columns - 1;
+                if (!isLastElement) {
+                    reportContent.append(" - ");
                 }
             }
             reportContent.append("\n");
         }
 
-        reportContent.append("-------------------------------------------");
+        reportContent.append(DELIMITER);
 
         return reportContent.toString();
     }
