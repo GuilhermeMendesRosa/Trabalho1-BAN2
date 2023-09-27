@@ -34,7 +34,7 @@ public class ReportController {
     @GetMapping("teacher")
     public ResponseEntity teacherReport() {
         try {
-            return ResponseEntity.ok(studentService.report());
+            return ResponseEntity.ok(teacherService.report());
         } catch (Exception exception) {
             return ResponseEntity.internalServerError().build();
         }
