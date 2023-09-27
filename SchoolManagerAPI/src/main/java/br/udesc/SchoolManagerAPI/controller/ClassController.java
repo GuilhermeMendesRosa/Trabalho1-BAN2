@@ -22,26 +22,43 @@ public class ClassController {
 
     @GetMapping("/all")
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(this.classService.findAll());
+        try {
+            return ResponseEntity.ok(this.classService.findAll());
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable Long id) {
-        return ResponseEntity.ok(this.classService.findById(id));
+        try {
+            return ResponseEntity.ok(this.classService.findById(id));
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity delete(@PathVariable Long id) {
-        this.classService.delete(id);
-        return ResponseEntity.ok().build();
+        try {
+            this.classService.delete(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity edit(@PathVariable Long id, @RequestBody ClassDTO classDTO) {
-        this.classService.edit(id, classDTO);
-        return ResponseEntity.ok().build();
+        try {
+            this.classService.edit(id, classDTO);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
 }

@@ -24,12 +24,20 @@ public class ReportController {
 
     @GetMapping("student")
     public ResponseEntity studentReport() {
-        return ResponseEntity.ok(studentService.report());
+        try {
+            return ResponseEntity.ok(studentService.report());
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping("teacher")
     public ResponseEntity teacherReport() {
-        return ResponseEntity.ok(teacherService.report());
+        try {
+            return ResponseEntity.ok(studentService.report());
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping("class")
