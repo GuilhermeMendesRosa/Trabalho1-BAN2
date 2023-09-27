@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <h2>Turmas</h2>
+      <div class="card-deck">
+        <div *ngFor="let class of classes" class="card my-3">
+          <div class="card-body d-flex align-items-center">
+            <div class="flex-grow-1">
+              <h5 class="card-title">{{class.name}} - {{literals[class.academicCategory]}}{{class.teacherManagerName ? ' - ' + class.teacherManagerName : ""}}</h5>
+            </div>
+            <div class="ml-auto">
+              <button (click)="edit(class.id)" class="btn btn-primary m-1">Editar</button>
+              <button (click)="delete(class.id)" class="btn btn-danger m-1 ml-2">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

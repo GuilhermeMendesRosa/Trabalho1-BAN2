@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card-deck">
+        <div class="card m-3">
+          <div class="card-body">
+            <h5 class="card-title">Lista de Alunos por Turma e Disciplina</h5>
+            <button (click)="generateStudentReport()" class="btn btn-primary">Gerar</button>
+          </div>
+        </div>
+        <div class="card m-3">
+          <div class="card-body">
+            <h5 class="card-title">Lista de Professores e Turmas que Eles Gerenciam</h5>
+            <button (click)="generateTeacherReport()" class="btn btn-primary">Gerar</button>
+          </div>
+        </div>
+        <div class="card m-3">
+          <div class="card-body">
+            <h5 class="card-title">Número de Alunos por Categoria Acadêmica</h5>
+            <button (click)="generateClassReport()" class="btn btn-primary">Gerar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

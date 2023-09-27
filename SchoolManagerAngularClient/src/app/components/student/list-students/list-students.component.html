@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <h2>Alunos</h2>
+      <div class="card-deck">
+        <div *ngFor="let student of students" class="card my-3">
+          <div class="card-body d-flex align-items-center">
+            <div class="flex-grow-1">
+              <h5 class="card-title">{{student.name}}{{student.className ? ' - ' + student.className : ''}}</h5>
+            </div>
+            <div class="ml-auto">
+              <button (click)="edit(student.id)" class="btn btn-primary m-1">Editar</button>
+              <button (click)="delete(student.id)" class="btn btn-danger m-1 ml-2">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
