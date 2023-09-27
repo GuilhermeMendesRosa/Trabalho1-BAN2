@@ -22,10 +22,18 @@ public class ReportController {
     @Autowired
     private ClassService classService;
 
-    @GetMapping("student")
-    public ResponseEntity studentReport() {
+    @GetMapping("students-class-info")
+    public ResponseEntity getStudentClassSubjectInfoReport() {
         try {
-            return ResponseEntity.ok(studentService.report());
+            return ResponseEntity.ok(studentService.getStudentClassSubjectInfoReport());
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    @GetMapping("students-not-enrolled")
+    public ResponseEntity getNotEnrolledStudentsReport() {
+        try {
+            return ResponseEntity.ok(studentService.getNotEnrolledStudentsReport());
         } catch (Exception exception) {
             return ResponseEntity.internalServerError().build();
         }
