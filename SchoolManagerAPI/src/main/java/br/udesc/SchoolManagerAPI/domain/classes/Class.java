@@ -22,8 +22,7 @@ public class Class extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private AcademicCategoryEnum academicCategory;
 
-    @OneToOne
-    @JoinColumn(name = "teacher_manager_id", nullable = true)
+    @OneToOne(mappedBy = "teachers")
     private Teacher teacherManager;
 
     @ManyToMany

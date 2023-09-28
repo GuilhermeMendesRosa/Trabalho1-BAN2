@@ -34,9 +34,6 @@ public class ClassService {
             Teacher teacherManager = teacherRepository.findById(teacherManagerId).get();
             aClass.setTeacherManager(teacherManager);
             classRepository.save(aClass);
-
-            teacherManager.setManagedClass(aClass);
-            teacherRepository.save(teacherManager);
         } else {
             classRepository.save(aClass);
         }
@@ -72,17 +69,6 @@ public class ClassService {
     }
 
     public void delete(Long classId) {
-        Class aClass = this.classRepository.findById(classId).get();
-
-        Teacher teacherManager = aClass.getTeacherManager();
-
-        if (teacherManager != null) {
-            teacherManager.setManagedClass(null);
-            aClass.setTeacherManager(null);
-            this.teacherRepository.save(teacherManager);
-            this.classRepository.save(aClass);
-        }
-
         this.classRepository.deleteById(classId);
     }
 
@@ -96,11 +82,6 @@ public class ClassService {
         Long newTeacherId = classDTO.getTeacherManagerId();
 
         if (newTeacherId != null) {
-            Teacher oldTeacher = aClass.getTeacherManager();
-            if (oldTeacher != null) {
-                oldTeacher.setManagedClass(null);
-            }
-
             Teacher newTeacher = this.teacherRepository.findById(newTeacherId).get();
             aClass.setTeacherManager(newTeacher);
             newTeacher.setManagedClass(aClass);
