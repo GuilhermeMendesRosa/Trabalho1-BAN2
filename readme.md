@@ -24,6 +24,11 @@ $ npm i
 $ npm start
 ```
 
+### Credits
+https://github.com/jpdev01
+<br>
+https://github.com/GuilhermeMendesRosa
+
 
 ### Descrição
 Uma aplicação deverá ser desenvolvida que faça uso e manipulação do banco de dados relacional. Tal aplicação não necessita apresentar uma interface gráfica, portanto, se a equipe preferir poderá usar a interface em modo texto (REST não será aceito como interface). Não será exigida uma linguagem de programação específica, entretanto, a solução exemplo e suporte da professora será apenas na linguagem Java. Esta aplicação deverá prover interfaces e respectivo funcionamento para as seguintes operações:
