@@ -1,3 +1,30 @@
+### Setup para subir a aplicação:
+1. Java 17
+2. MySQL usado em testes: 8
+3. Node 
+4. NPM
+
+### Instruções:
+#### Back-end:
+1. Criar o schema (Não é necessário rodar o dump visto que o framework ORM (Hibernate) fará a criação da estrutura)
+```
+create schema school_manager
+```
+2. Compilar e rodar pelo maven
+```
+$ mvn clean install
+$ mvn spring-boot:run
+```
+#### Front-end
+
+```
+$cd C:\Code\Trabalho1-BAN2\SchoolManagerAngularClient
+$ npm install -g @angular/cli
+$ npm i
+$ npm start
+```
+
+
 ### Descrição
 Uma aplicação deverá ser desenvolvida que faça uso e manipulação do banco de dados relacional. Tal aplicação não necessita apresentar uma interface gráfica, portanto, se a equipe preferir poderá usar a interface em modo texto (REST não será aceito como interface). Não será exigida uma linguagem de programação específica, entretanto, a solução exemplo e suporte da professora será apenas na linguagem Java. Esta aplicação deverá prover interfaces e respectivo funcionamento para as seguintes operações:
 
