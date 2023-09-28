@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class Teacher extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToMany
