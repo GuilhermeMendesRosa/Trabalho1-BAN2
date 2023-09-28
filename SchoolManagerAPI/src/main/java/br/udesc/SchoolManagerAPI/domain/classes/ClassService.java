@@ -1,6 +1,7 @@
 package br.udesc.SchoolManagerAPI.domain.classes;
 
 import br.udesc.SchoolManagerAPI.domain.classes.dto.ClassDTO;
+import br.udesc.SchoolManagerAPI.domain.student.StudentRepository;
 import br.udesc.SchoolManagerAPI.domain.subject.SubjectRepository;
 import br.udesc.SchoolManagerAPI.domain.teacher.Teacher;
 import br.udesc.SchoolManagerAPI.domain.teacher.TeacherRepository;
@@ -21,6 +22,8 @@ public class ClassService {
     private TeacherRepository teacherRepository;
     @Autowired
     private SubjectRepository subjectRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     public void create(ClassDTO classDTO) {
         Class aClass = new Class();
@@ -72,6 +75,9 @@ public class ClassService {
     }
 
     public void delete(Long classId) {
+        if (studentRepository.existsByAClassId(classId)) {
+            throw new RuntimeException("Não é possível remover uma turma com alunos vinculados!");
+        }
         Class aClass = this.classRepository.findById(classId).get();
 
         Teacher teacherManager = aClass.getTeacherManager();

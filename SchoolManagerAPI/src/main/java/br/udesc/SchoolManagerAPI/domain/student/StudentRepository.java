@@ -16,4 +16,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
         @Query("SELECT s FROM Student s WHERE s.aClass IS NULL")
         List<Student> getNotEnrolledStudents();
+
+        Boolean existsByAClassId(Long aClassId);
 }
