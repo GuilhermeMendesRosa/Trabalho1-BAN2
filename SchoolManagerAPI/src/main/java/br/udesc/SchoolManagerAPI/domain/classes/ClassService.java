@@ -75,7 +75,7 @@ public class ClassService {
     }
 
     public void delete(Long classId) {
-        if (studentRepository.existsByAClassId(classId)) {
+        if (studentRepository.existsByaClassId(classId)) {
             throw new RuntimeException("Não é possível remover uma turma com alunos vinculados!");
         }
         Class aClass = this.classRepository.findById(classId).get();
