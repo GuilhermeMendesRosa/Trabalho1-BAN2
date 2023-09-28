@@ -9,3 +9,15 @@ Uma aplicação deverá ser desenvolvida que faça uso e manipulação do banco 
 
 https://docs.google.com/document/d/11-AcaoiJOv__kgFC5p4O1LxNnR7zO0vPM1PsplVTVqk/edit?usp=sharing
 
+### Na Fase 1 as equipes deverão entregar:
+
+1) Um documento de texto contendo:  
+   2) uma seção com uma introdução explicativa do domínio de informação escolhido, 
+   3) o esquema conceitual 
+   4) o esquema lógico na forma de um dicionário de dados
+
+2) Um repositório ou diretório na nuvem contendo: 
+   3) arquivos de código-fonte da aplicação desenvolvida
+   4) um arquivo de backup do banco de dados
+   5) um arquivo de texto com instruções para a compilação e execução da aplicação. Forneça o link do repositório no documento de texto solicitado no item 1.
+
