@@ -13,6 +13,6 @@ import lombok.*;
 @Setter
 public class Subject extends BaseEntity {
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 }
