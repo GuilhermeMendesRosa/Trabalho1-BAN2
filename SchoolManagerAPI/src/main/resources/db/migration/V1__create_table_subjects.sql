@@ -6,6 +6,6 @@ create table subjects
     updated_at datetime(6)  not null,
     version    int          not null,
     name       varchar(255) null,
-    constraint UK_aodt3utnw0lsov4k9ta88dbpr
+    constraint subjects_name_unique
         unique (name)
 );
