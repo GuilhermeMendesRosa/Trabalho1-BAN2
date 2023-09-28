@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,12 +54,31 @@ public class StudentService {
     }
 
     @Transactional(readOnly = true)
-    public String report() {
+    public String getStudentClassSubjectInfoReport() {
         String name = "Lista de Alunos por Turma e Disciplina";
         int colums = 3;
         List<Object[]> rows = this.studentRepository.getStudentClassSubjectInfo();
 
         String report = SchoolManagerUtils.buildReport(name, rows, colums);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("report", report);
+
+        return jsonObject.toString();
+    }
+
+    public String getNotEnrolledStudentsReport() {
+        List<Student> students = this.studentRepository.getNotEnrolledStudents();
+
+        List<Object[]> rows = new ArrayList<Object[]>();
+
+        for (Student student : students) {
+            Object[] obj = new Object[1];
+            obj[0] = student.getName();
+            rows.add(obj);
+        }
+
+        String report = SchoolManagerUtils.buildReport("Alunos sem turma", rows, 1);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("report", report);
