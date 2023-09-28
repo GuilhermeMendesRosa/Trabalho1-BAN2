@@ -13,9 +13,11 @@ import lombok.*;
 @Setter
 public class Student extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
+
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = true)
+    @JoinColumn(name = "class_id")
     private Class aClass;
 
 }

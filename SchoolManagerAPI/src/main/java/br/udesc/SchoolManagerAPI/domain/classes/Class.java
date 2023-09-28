@@ -17,13 +17,15 @@ import java.util.List;
 @Setter
 public class Class extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private AcademicCategoryEnum academicCategory;
 
     @OneToOne
-    @JoinColumn(name = "teacher_manager_id", nullable = true)
+    @JoinColumn(name = "teacher_manager_id")
     private Teacher teacherManager;
 
     @ManyToMany

@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 public class Teacher extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
     @ManyToMany
@@ -23,7 +24,7 @@ public class Teacher extends BaseEntity {
     private List<Subject> subjects;
 
     @OneToOne
-    @JoinColumn(name = "managed_class_id", nullable = true)
+    @JoinColumn(name = "managed_class_id")
     private Class managedClass;
 
     public Teacher(String name, List<Subject> subjects) {
