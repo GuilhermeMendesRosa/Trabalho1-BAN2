@@ -6,10 +6,10 @@ services:
     image: mysql:8
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: school_manager_password
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: school_manager
       MYSQL_USER: root
-      MYSQL_PASSWORD: school_manager_password
+      MYSQL_PASSWORD: root
     ports:
       - "3307:3306"
     networks:
@@ -26,6 +26,18 @@ services:
       - "8080:8080"
     networks:
       - ban2-network
+
+    # Angular service
+  angular-app:
+      build:
+        context: ./SchoolManagerAngularClient
+        dockerfile: Dockerfile
+      ports:
+        - "4200:4200"
+      networks:
+        - ban2-network
+      depends_on:
+        - java-app
 
 networks:
   ban2-network:
