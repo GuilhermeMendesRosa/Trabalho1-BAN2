@@ -5,6 +5,11 @@
 4. NPM
 
 ### Instruções:
+#### Rodar os dois projetos via Docker:
+```
+sudo docker-compose up
+```
+Ou
 #### Back-end:
 1. Criar o schema (Não é necessário rodar o dump visto que o framework ORM (Hibernate) fará a criação da estrutura)
 ```
