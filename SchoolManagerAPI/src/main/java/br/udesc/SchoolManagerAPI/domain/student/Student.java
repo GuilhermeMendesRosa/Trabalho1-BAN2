@@ -2,6 +2,7 @@ package br.udesc.SchoolManagerAPI.domain.student;
 
 import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import lombok.*;
+import br.udesc.SchoolManagerAPI.domain.classes.Class;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;

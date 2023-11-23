@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-class Class extends BaseEntity {
+public class Class extends BaseEntity {
 
     @Property(name = "name")
     private String name;

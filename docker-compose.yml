@@ -26,17 +26,17 @@ services:
     networks:
       - ban2-network
 
-  # Java application service
-  java-app:
-    build:
-      context: ./SchoolManagerAPI
-      dockerfile: Dockerfile
-    depends_on:
-      - neo4j
-    ports:
-      - "8080:8080"
-    networks:
-      - ban2-network
+#  # Java application service
+#  java-app:
+#    build:
+#      context: ./SchoolManagerAPI
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - neo4j
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - ban2-network
 
 networks:
   ban2-network:

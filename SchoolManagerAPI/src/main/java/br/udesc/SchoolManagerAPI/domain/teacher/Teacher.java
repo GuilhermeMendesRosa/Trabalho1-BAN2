@@ -2,6 +2,7 @@ package br.udesc.SchoolManagerAPI.domain.teacher;
 
 import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
+import br.udesc.SchoolManagerAPI.domain.classes.Class;
 import lombok.*;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
