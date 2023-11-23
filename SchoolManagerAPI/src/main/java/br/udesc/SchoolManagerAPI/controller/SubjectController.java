@@ -1,26 +1,24 @@
 package br.udesc.SchoolManagerAPI.controller;
 
-import br.udesc.SchoolManagerAPI.domain.subject.Subject;
-import br.udesc.SchoolManagerAPI.domain.subject.SubjectRepository;
+import br.udesc.SchoolManagerAPI.domain.subject.SubjectService;
+import br.udesc.SchoolManagerAPI.domain.subject.dto.CreateSubjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/subjects")
 public class SubjectController {
+
     @Autowired
-    private SubjectRepository subjectRepository;
+    private SubjectService subjectService;
 
-    @GetMapping
-    public ResponseEntity<List<Subject>> getAll() {
-        List<Subject> all = subjectRepository.findAll();
+    @PostMapping
+    public ResponseEntity create(@RequestBody CreateSubjectDTO subjectDTO) {
+        subjectService.save(subjectDTO.getName());
 
-        return ResponseEntity.ok(all);
+        return ResponseEntity.ok(null);
     }
-
 }
