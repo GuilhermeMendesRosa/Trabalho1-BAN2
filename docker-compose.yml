@@ -1,17 +1,28 @@
 version: '3'
 
 services:
-  # MySQL service
-  mysql:
-    image: mysql:8
+#  # MySQL service
+#  mysql:
+#    image: mysql:8
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: school_manager_password
+#      MYSQL_DATABASE: school_manager
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: school_manager_password
+#    ports:
+#      - "3307:3306"
+#    networks:
+#      - ban2-network
+
+  neo4j:
+    image: neo4j:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: school_manager_password
-      MYSQL_DATABASE: school_manager
-      MYSQL_USER: root
-      MYSQL_PASSWORD: school_manager_password
+      NEO4J_AUTH: neo4j/password
     ports:
-      - "3307:3306"
+      - "7474:7474"
+      - "7687:7687"
     networks:
       - ban2-network
 
@@ -21,7 +32,7 @@ services:
       context: ./SchoolManagerAPI
       dockerfile: Dockerfile
     depends_on:
-      - mysql
+      - neo4j
     ports:
       - "8080:8080"
     networks:
