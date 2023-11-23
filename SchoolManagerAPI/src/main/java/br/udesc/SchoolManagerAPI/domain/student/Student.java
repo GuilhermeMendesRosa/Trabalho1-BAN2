@@ -1,23 +1,22 @@
 package br.udesc.SchoolManagerAPI.domain.student;
 
 import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
-import br.udesc.SchoolManagerAPI.domain.classes.Class;
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
-@Table(name = "students")
-@Entity(name = "Student")
+@Node("students")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class Student extends BaseEntity {
 
-    @Column(nullable = false)
+    @Property(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "class_id")
+    @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
     private Class aClass;
 
 }

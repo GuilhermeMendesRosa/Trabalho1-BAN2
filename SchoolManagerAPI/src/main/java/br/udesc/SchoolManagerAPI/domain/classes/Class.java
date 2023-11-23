@@ -4,32 +4,28 @@ import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import br.udesc.SchoolManagerAPI.domain.classes.dto.ClassDTO;
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
 import br.udesc.SchoolManagerAPI.domain.teacher.Teacher;
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.List;
 
-@Table(name = "classes")
-@Entity(name = "Class")
+@Node("classes")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Class extends BaseEntity {
+class Class extends BaseEntity {
 
-    @Column(nullable = false)
+    @Property(name = "name")
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Property(name = "academicCategory")
     private AcademicCategoryEnum academicCategory;
 
-    @OneToOne
-    @JoinColumn(name = "teacher_manager_id")
+    @Relationship(type = "MANAGED_BY", direction = Relationship.Direction.OUTGOING)
     private Teacher teacherManager;
 
-    @ManyToMany
-    @JoinColumn(name = "subject_id", nullable = false)
+    @Relationship(type = "TEACHES", direction = Relationship.Direction.OUTGOING)
     private List<Subject> subjects;
 
     public Class(ClassDTO classDTO, Teacher teacherManager, List<Subject> subjects) {
@@ -38,5 +34,4 @@ public class Class extends BaseEntity {
         this.teacherManager = teacherManager;
         this.subjects = subjects;
     }
-
 }
