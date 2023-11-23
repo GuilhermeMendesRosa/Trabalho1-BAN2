@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  # MySQL service
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: school_manager_password
+      MYSQL_DATABASE: school_manager
+      MYSQL_USER: root
+      MYSQL_PASSWORD: school_manager_password
+    ports:
+      - "3307:3306"
+    networks:
+      - ban2-network
+
+  # Java application service
+  java-app:
+    build:
+      context: ./SchoolManagerAPI
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - ban2-network
+
+networks:
+  ban2-network:
+    driver: bridge
