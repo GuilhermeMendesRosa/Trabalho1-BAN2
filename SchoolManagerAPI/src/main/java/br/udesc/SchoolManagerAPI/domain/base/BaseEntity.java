@@ -12,7 +12,6 @@ import org.springframework.data.neo4j.core.schema.Node;
 
 @Getter
 @Setter
-@Node
 @EqualsAndHashCode(of = "id")
 public abstract class BaseEntity {
 
@@ -20,7 +19,6 @@ public abstract class BaseEntity {
     @GeneratedValue
     private Long id;
 
-    @Version
     private Long version;
 
     private Long createdAt;

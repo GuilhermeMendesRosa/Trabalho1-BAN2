@@ -17,7 +17,6 @@ import java.util.List;
 @Setter
 public class Teacher extends BaseEntity {
 
-    @Property(name="name")
     private String name;
 
     @Relationship(type = "TEACHES", direction = Relationship.Direction.OUTGOING)

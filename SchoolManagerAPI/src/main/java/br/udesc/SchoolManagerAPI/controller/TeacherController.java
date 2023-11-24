@@ -1,5 +1,6 @@
 package br.udesc.SchoolManagerAPI.controller;
 
+import br.udesc.SchoolManagerAPI.domain.teacher.Teacher;
 import br.udesc.SchoolManagerAPI.domain.teacher.TeacherService;
 import br.udesc.SchoolManagerAPI.domain.teacher.dto.ListTeacherDTO;
 import br.udesc.SchoolManagerAPI.domain.teacher.dto.TeacherDTO;
@@ -19,9 +20,9 @@ public class TeacherController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody TeacherDTO teacherDTO) {
-        this.teacherService.create(teacherDTO);
+        Teacher teacher = this.teacherService.create(teacherDTO);
 
-        return ResponseEntity.ok(teacherDTO);
+        return ResponseEntity.ok(teacher);
     }
 
     @GetMapping("/no-managing")

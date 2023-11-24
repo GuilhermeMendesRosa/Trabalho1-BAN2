@@ -1,5 +1,6 @@
 package br.udesc.SchoolManagerAPI.domain.teacher;
 
+import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import br.udesc.SchoolManagerAPI.domain.classes.Class;
 import br.udesc.SchoolManagerAPI.domain.classes.ClassRepository;
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherService {
@@ -24,11 +26,15 @@ public class TeacherService {
     @Autowired
     private ClassRepository classRepository;
 
-    public void create(TeacherDTO teacherDTO) {
+    public Teacher create(TeacherDTO teacherDTO) {
         List<Subject> subjects = subjectRepository.findAllById(teacherDTO.getSubjectIds());
         Teacher teacher = new Teacher(teacherDTO.getName(), subjects);
 
-        this.teacherRepository.save(teacher);
+        return this.teacherRepository.createTeacher(
+                teacher.getName(),
+                subjects.stream().map(BaseEntity::getId).collect(Collectors.toList())
+
+        );
     }
 
     @Transactional(readOnly = true)
