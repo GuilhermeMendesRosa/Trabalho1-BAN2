@@ -10,8 +10,6 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @Node
@@ -25,9 +23,7 @@ public abstract class BaseEntity {
     @Version
     private Long version;
 
-    @CreatedDate
-    private Date createdAt;
+    private Long createdAt;
 
-    @LastModifiedDate
-    private Date updatedAt;
+    private Long updatedAt;
 }

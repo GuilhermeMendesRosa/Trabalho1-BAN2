@@ -28,7 +28,7 @@ public class SubjectController {
 
     @GetMapping
     public ResponseEntity<List<Subject>> getAll() {
-        List<Subject> subjectList = subjectRepository.findAll();
+        List<Subject> subjectList = subjectRepository.getAll();
 
         return ResponseEntity.ok(subjectList);
     }
