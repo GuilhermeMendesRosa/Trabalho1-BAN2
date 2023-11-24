@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
 
-    @Query("MATCH (t:Teacher) WHERE NOT (t)-[:MANAGES]->(:Neo4jClass) RETURN t")
+    @Query("MATCH (t:teachers) WHERE NOT (t)-[:MANAGES]->(:classes) RETURN t")
     List<Teacher> findNoManagingTeachers();
 
     @Query("MATCH (t:Teacher)-[:MANAGES]->(c:Neo4jClass) RETURN t.name AS teacher_name, c.name AS class_name")
