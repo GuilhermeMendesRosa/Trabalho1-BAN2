@@ -5,6 +5,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
 
@@ -17,20 +18,29 @@ public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
     @Query("""
             MATCH (teacher:teachers)-[:TEACHES]->(subject:subjects)
             OPTIONAL MATCH (teacher)-[:MANAGES]->(managedClass:classes)
-            RETURN teacher, subject, managedClass
+            RETURN teacher, COLLECT(subject) AS subjects, COLLECT(managedClass) AS managedClasses
             """)
     @Override
     List<Teacher> findAll();
 
     @Query("""
-            MERGE (teacher:teachers {name: $name}) " +
-            "ON CREATE SET teacher.createdAt = timestamp(), teacher.updatedAt = timestamp() " +
-            "WITH teacher " +
-            "UNWIND $subjectIds as subjectId " +
-            "MATCH (subject:subjects) WHERE ID(subject) = subjectId " +
-            "MERGE (teacher)-[:TEACHES]->(subject) " +
-            "RETURN teacher
+            MERGE (teacher:teachers {name: $name})
+            ON CREATE SET teacher.createdAt = timestamp(), teacher.updatedAt = timestamp()
+            WITH teacher
+            UNWIND $subjectIds as subjectId
+            MATCH (subject:subjects) WHERE ID(subject) = subjectId
+            MERGE (teacher)-[:TEACHES]->(subject)
+            RETURN teacher
             """)
     Teacher createTeacher(@Param("name") String name, @Param("subjectIds") List<Long> subjectIds);
 
+    @Query("""
+    MATCH (teacher:teachers)-[:TEACHES]->(subject:subjects)
+    OPTIONAL MATCH (teacher)-[:MANAGES]->(managedClass:classes)
+    WHERE ID(teacher) = $id
+    RETURN teacher, subject, managedClass
+    LIMIT 1
+""")
+    @Override
+    Optional<Teacher> findById(@Param("id") Long id);
 }
