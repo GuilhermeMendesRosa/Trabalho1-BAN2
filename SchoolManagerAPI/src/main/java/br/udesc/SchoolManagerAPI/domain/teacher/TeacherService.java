@@ -33,7 +33,6 @@ public class TeacherService {
         return this.teacherRepository.createTeacher(
                 teacher.getName(),
                 subjects.stream().map(BaseEntity::getId).collect(Collectors.toList())
-
         );
     }
 
