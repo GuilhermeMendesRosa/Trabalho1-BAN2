@@ -35,12 +35,12 @@ public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
     Teacher createTeacher(@Param("name") String name, @Param("subjectIds") List<Long> subjectIds);
 
     @Query("""
-    MATCH (teacher:teachers)-[:TEACHES]->(subject:subjects)
-    OPTIONAL MATCH (teacher)-[:MANAGES]->(managedClass:classes)
-    WHERE ID(teacher) = $id
-    RETURN teacher, subject, managedClass
-    LIMIT 1
-""")
+        MATCH (teacher:teachers)-[t:TEACHES]->(subject:subjects)
+        OPTIONAL MATCH (teacher)-[m:MANAGES]->(managedClass:classes)
+        WHERE ID(teacher) = $id
+        RETURN teacher, t, subject AS subjects, m, managedClass
+        LIMIT 1
+       """)
     @Override
     Optional<Teacher> findById(@Param("id") Long id);
 }
