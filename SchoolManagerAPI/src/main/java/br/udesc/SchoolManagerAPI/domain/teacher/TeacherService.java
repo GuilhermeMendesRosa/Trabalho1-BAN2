@@ -40,7 +40,7 @@ public class TeacherService {
     public List<TeacherDTO> findNoManagingTeachers() {
         List<TeacherDTO> teacherDTOS = this.teacherRepository.findNoManagingTeachers()
                 .stream()
-                .map(teacher -> new TeacherDTO(teacher))
+                .map(TeacherDTO::new)
                 .toList();
 
         return teacherDTOS;
