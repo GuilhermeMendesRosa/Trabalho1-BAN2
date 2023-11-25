@@ -46,4 +46,11 @@ public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
 
     @Query("MATCH (t:teachers) WHERE id(t) = $id DETACH DELETE t")
     void delete(@Param("id") Long id);
+
+    @Query("""
+        MATCH (t:teachers)-[:MANAGES]->(c:classes)
+        WHERE id(t) = $teacherId
+        SET t.managedClass = $newManagedClassId
+    """)
+    void setManagedClass(@Param("teacherId") Long teacherId, @Param("newManagedClassId") Long newManagedClassId);
 }

@@ -59,9 +59,7 @@ public class TeacherService {
     @Transactional(readOnly = true)
     public ListTeacherDTO findById(Long id) {
         Teacher teacher = this.teacherRepository.findById(id).get();
-        ListTeacherDTO listTeacherDTO = new ListTeacherDTO(teacher);
-
-        return listTeacherDTO;
+        return new ListTeacherDTO(teacher);
     }
 
     @Transactional(readOnly = true)

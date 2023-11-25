@@ -2,6 +2,7 @@ package br.udesc.SchoolManagerAPI.domain.classes;
 
 import br.udesc.SchoolManagerAPI.domain.classes.dto.ClassDTO;
 import br.udesc.SchoolManagerAPI.domain.student.StudentRepository;
+import br.udesc.SchoolManagerAPI.domain.subject.Subject;
 import br.udesc.SchoolManagerAPI.domain.subject.SubjectRepository;
 import br.udesc.SchoolManagerAPI.domain.teacher.Teacher;
 import br.udesc.SchoolManagerAPI.domain.teacher.TeacherRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClassService {
@@ -36,10 +38,10 @@ public class ClassService {
         if (teacherManagerId != null) {
             Teacher teacherManager = teacherRepository.findById(teacherManagerId).get();
             aClass.setTeacherManager(teacherManager);
-            classRepository.save(aClass);
+            classRepository.create(aClass.getName(), aClass.getAcademicCategory(), aClass.getTeacherManager().getId(), aClass.getSubjects().stream().map(Subject::getId).collect(Collectors.toList()));
 
             teacherManager.setManagedClass(aClass);
-            teacherRepository.save(teacherManager);
+            teacherRepository.setManagedClass(teacherManager.getId(), teacherManager.getManagedClass().getId());
         } else {
             classRepository.save(aClass);
         }
@@ -47,12 +49,10 @@ public class ClassService {
 
     @Transactional(readOnly = true)
     public List<ClassDTO> findAll() {
-        List<ClassDTO> classDTOS = this.classRepository.findAll()
+        return this.classRepository.findAll()
                 .stream()
-                .map(aClass -> new ClassDTO(aClass))
+                .map(ClassDTO::new)
                 .toList();
-
-        return classDTOS;
     }
 
     public ClassDTO findById(Long id) {
