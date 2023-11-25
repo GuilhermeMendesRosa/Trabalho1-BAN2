@@ -50,7 +50,7 @@ public class TeacherService {
     public List<ListTeacherDTO> listAll() {
         List<ListTeacherDTO> listTeacherDTOS = this.teacherRepository.findAll()
                 .stream()
-                .map(teacher -> new ListTeacherDTO(teacher))
+                .map(ListTeacherDTO::new)
                 .toList();
 
         return listTeacherDTOS;
