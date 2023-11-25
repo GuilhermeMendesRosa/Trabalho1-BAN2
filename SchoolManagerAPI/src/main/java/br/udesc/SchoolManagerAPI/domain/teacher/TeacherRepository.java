@@ -36,11 +36,14 @@ public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
 
     @Query("""
         MATCH (teacher:teachers)-[t:TEACHES]->(subject:subjects)
-        OPTIONAL MATCH (teacher)-[m:MANAGES]->(managedClass:classes)
         WHERE ID(teacher) = $id
+        OPTIONAL MATCH (teacher)-[m:MANAGES]->(managedClass:classes)
         RETURN teacher, t, subject AS subjects, m, managedClass
         LIMIT 1
        """)
     @Override
     Optional<Teacher> findById(@Param("id") Long id);
+
+    @Query("MATCH (t:teachers) WHERE id(t) = $id DETACH DELETE t")
+    void delete(@Param("id") Long id);
 }

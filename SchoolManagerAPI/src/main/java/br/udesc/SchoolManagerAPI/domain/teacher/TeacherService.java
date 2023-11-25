@@ -87,11 +87,10 @@ public class TeacherService {
             managedClass.setTeacherManager(null);
             teacher.setManagedClass(null);
 
-            this.classRepository.save(managedClass);
-            this.teacherRepository.save(teacher);
+            this.classRepository.removeTeacherManager(managedClass.getId());
         }
 
-        this.teacherRepository.deleteById(teacherId);
+        this.teacherRepository.delete(teacherId);
     }
 
     public void edit(Long id, TeacherDTO teacherDTO) {

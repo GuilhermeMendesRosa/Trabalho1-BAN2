@@ -13,4 +13,14 @@ public interface ClassRepository extends Neo4jRepository<Class, Long> {
             "ORDER BY c.academicCategory")
     List<Object[]> getClassStudentCountByCategory();
 
+    @Query("""
+            MATCH (c:classes)-[r:MANAGED_BY]->(oldTeacher:teachers)
+            WHERE ID(c) = $classId
+            SET r.teacherManager = null
+            WITH oldTeacher, c
+            MATCH (oldTeacher)-[m:MANAGES]->(c)
+            DELETE m
+            """)
+    void removeTeacherManager(Long classId);
+
 }
