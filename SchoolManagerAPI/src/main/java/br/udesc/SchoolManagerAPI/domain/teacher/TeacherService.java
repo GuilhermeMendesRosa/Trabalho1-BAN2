@@ -68,9 +68,9 @@ public class TeacherService {
     public String report() {
         String name = "Lista de Professores e Turmas que Eles Gerenciam";
         int colums = 2;
-        List<Object[]> rows = this.teacherRepository.getTeacherClassInfo();
+        List<TeacherClassReportVO> reportList = this.teacherRepository.getTeacherClassInfo();
 
-        String report = SchoolManagerUtils.buildReport(name, rows, colums);
+        String report = SchoolManagerUtils.buildReport(name, TeacherClassReportVO.getRows(reportList), colums);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("report", report);
@@ -101,5 +101,6 @@ public class TeacherService {
         if (subjectIds != null && !subjectIds.isEmpty()) {
             teacher.setSubjects(this.subjectRepository.findAllById(subjectIds));
         }
+        // TODO: Falta um update?
     }
 }

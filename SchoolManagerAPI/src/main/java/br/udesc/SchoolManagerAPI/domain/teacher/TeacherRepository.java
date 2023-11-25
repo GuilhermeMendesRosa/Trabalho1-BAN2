@@ -12,8 +12,8 @@ public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
     @Query("MATCH (t:teachers) WHERE NOT (t)-[:MANAGES]->(:classes) RETURN t")
     List<Teacher> findNoManagingTeachers();
 
-    @Query("MATCH (t:Teacher)-[:MANAGES]->(c:Neo4jClass) RETURN t.name AS teacher_name, c.name AS class_name")
-    List<Object[]> getTeacherClassInfo();
+    @Query("MATCH (t:teachers)-[:MANAGES]->(c:classes) RETURN t.name AS teacherName, c.name AS className")
+    List<TeacherClassReportVO> getTeacherClassInfo();
 
     @Query("""
             MATCH (teacher:teachers)-[t:TEACHES]->(subject:subjects)
