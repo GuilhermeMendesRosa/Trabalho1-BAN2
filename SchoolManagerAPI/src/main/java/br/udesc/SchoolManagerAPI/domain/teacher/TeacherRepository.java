@@ -29,8 +29,8 @@ public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
             WITH teacher
             UNWIND $subjectIds as subjectId
             MATCH (subject:subjects) WHERE ID(subject) = subjectId
-            MERGE (teacher)-[:TEACHES]->(subject)
-            RETURN teacher
+            MERGE (teacher)-[t:TEACHES]->(subject)
+            RETURN teacher, t, subject AS subjects
             """)
     Teacher createTeacher(@Param("name") String name, @Param("subjectIds") List<Long> subjectIds);
 
