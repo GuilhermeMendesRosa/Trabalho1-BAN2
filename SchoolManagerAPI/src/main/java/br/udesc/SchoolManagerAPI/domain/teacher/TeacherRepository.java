@@ -16,9 +16,9 @@ public interface TeacherRepository extends Neo4jRepository<Teacher, Long> {
     List<Object[]> getTeacherClassInfo();
 
     @Query("""
-            MATCH (teacher:teachers)-[:TEACHES]->(subject:subjects)
-            OPTIONAL MATCH (teacher)-[:MANAGES]->(managedClass:classes)
-            RETURN teacher, COLLECT(subject) AS subjects, COLLECT(managedClass) AS managedClasses
+            MATCH (teacher:teachers)-[t:TEACHES]->(subject:subjects)
+            OPTIONAL MATCH (teacher)-[m:MANAGES]->(managedClass:classes)
+            RETURN teacher, t, subject AS subjects, m, managedClass
             """)
     @Override
     List<Teacher> findAll();
