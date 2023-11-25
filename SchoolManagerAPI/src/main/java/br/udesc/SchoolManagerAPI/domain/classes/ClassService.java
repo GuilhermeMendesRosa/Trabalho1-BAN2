@@ -43,7 +43,7 @@ public class ClassService {
             teacherManager.setManagedClass(aClass);
             teacherRepository.setManagedClass(teacherManager.getId(), teacherManager.getManagedClass().getId());
         } else {
-            classRepository.save(aClass);
+            classRepository.create(aClass.getName(), aClass.getAcademicCategory(), null, aClass.getSubjects().stream().map(Subject::getId).collect(Collectors.toList()));
         }
     }
 
