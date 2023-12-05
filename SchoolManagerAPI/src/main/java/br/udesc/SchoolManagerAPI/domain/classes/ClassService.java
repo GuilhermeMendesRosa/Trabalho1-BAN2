@@ -2,7 +2,12 @@ package br.udesc.SchoolManagerAPI.domain.classes;
 
 import br.udesc.SchoolManagerAPI.domain.classes.dto.ClassDTO;
 import br.udesc.SchoolManagerAPI.domain.student.StudentRepository;
+import br.udesc.SchoolManagerAPI.domain.subject.Subject;
 import br.udesc.SchoolManagerAPI.domain.subject.SubjectRepository;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.SubjectRelation;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.SubjectRelationRepository;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.dto.CreateSubjectRelationDTO;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.dto.SubjectTeacherRelationDTO;
 import br.udesc.SchoolManagerAPI.domain.teacher.Teacher;
 import br.udesc.SchoolManagerAPI.domain.teacher.TeacherRepository;
 import br.udesc.SchoolManagerAPI.utils.SchoolManagerUtils;
@@ -24,6 +29,8 @@ public class ClassService {
     private SubjectRepository subjectRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private SubjectRelationRepository subjectRelationRepository;
 
     public void create(ClassDTO classDTO) {
         Class aClass = new Class();
@@ -113,5 +120,22 @@ public class ClassService {
         }
 
         this.classRepository.save(aClass);
+    }
+
+    public void doSubjectRelation(CreateSubjectRelationDTO createSubjectRelationDTO) {
+        Long classId = createSubjectRelationDTO.getClassId();
+        Class aClass = this.classRepository.findById(classId).get();
+
+        for (SubjectTeacherRelationDTO dto : createSubjectRelationDTO.getSubjectTeacherRelationList()) {
+            Subject subject = this.subjectRepository.findById(dto.getSubjectId()).get();
+            Teacher teacher = this.teacherRepository.findById(dto.getTeacherId()).get();
+
+            SubjectRelation subjectRelation = new SubjectRelation();
+            subjectRelation.setAClass(aClass);
+            subjectRelation.setSubject(subject);
+            subjectRelation.setTeacher(teacher);
+
+            this.subjectRelationRepository.save(subjectRelation);
+        }
     }
 }
