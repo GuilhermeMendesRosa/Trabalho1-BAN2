@@ -22,11 +22,9 @@ export class CreateClassComponent implements OnInit {
   };
 
   public teachers: Teacher[] = [];
-  public subjects: Subject[] = [];
   public isEdit: boolean = false;
 
   constructor(
-    private subjectService: SubjectService,
     private classService: ClassService,
     private teacherService: TeacherService,
     private router: Router,
@@ -34,9 +32,6 @@ export class CreateClassComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.subjectService.list().subscribe(subjects => {
-      this.subjects = subjects
-    });
     this.teacherService.listNoManaging().subscribe(teachers => {
       this.teachers = teachers;
     });
