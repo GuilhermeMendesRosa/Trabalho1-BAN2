@@ -141,4 +141,32 @@ public class ClassService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public String relationsReport() {
+        String report = "Lista de Turmas e suas Matérias";
+        report += "\n";
+
+        List<Class> classes = classRepository.findAll();
+
+        for (Class aClass: classes) {
+            report += "----------------------------";
+            report += "\n";
+            report += aClass.getName() + ":";
+            report += "\n";
+
+            List<SubjectRelation> subjectRelations = subjectRelationRepository.findAllByaClass(aClass);
+
+            for (SubjectRelation subjectRelation: subjectRelations) {
+                report += "   " + subjectRelation.getSubject().getName() + " - " + subjectRelation.getTeacher().getName();
+                report += "\n";
+            }
+
+            report += "----------------------------";
+            report += "\n";
+        }
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("report", report);
+
+        return jsonObject.toString();
+    }
 }

@@ -53,4 +53,9 @@ public class ReportController {
         return ResponseEntity.ok(classService.report());
     }
 
+    @GetMapping("relations")
+    public ResponseEntity relationsReport() {
+        return ResponseEntity.ok(classService.relationsReport());
+    }
+
 }

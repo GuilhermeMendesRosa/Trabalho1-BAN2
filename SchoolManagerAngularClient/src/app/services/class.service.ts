@@ -38,5 +38,8 @@ export class ClassService {
   report(): Observable<any> {
     return this.http.get<any>("/api/report/class");
   }
+  relationsReport(): Observable<any> {
+    return this.http.get<any>("/api/report/relations");
+  }
 
 }
