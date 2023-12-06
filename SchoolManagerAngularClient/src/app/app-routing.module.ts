@@ -12,6 +12,9 @@ import {CreateTeacherComponent} from './components/teacher/create-teacher/create
 import {ListTeachersComponent} from './components/teacher/list-teachers/list-teachers.component';
 import {TeachersMenuComponent} from './components/teacher/teachers-menu/teachers-menu.component';
 import {SubjectRelationComponent} from "./components/class/subject-relation/subject-relation.component";
+import {SubjectsMenuComponent} from "./components/subject/subjects-menu/subjects-menu.component";
+import {ListSubjectsComponent} from "./components/subject/list-subjects/list-subjects.component";
+import {CreateSubjectComponent} from "./components/subject/create-subject/create-subject.component";
 
 const routes: Routes = [
   {
@@ -29,6 +32,10 @@ const routes: Routes = [
   {
     path: "classes",
     component: ClassesMenuComponent
+  },
+  {
+    path: "subjects",
+    component: SubjectsMenuComponent
   },
   {
     path: "reports",
@@ -55,12 +62,12 @@ const routes: Routes = [
     component: CreateTeacherComponent
   },
   {
-    path: "edit-teacher/:id",
-    component: CreateTeacherComponent
+    path: "create-subject",
+    component: CreateSubjectComponent
   },
   {
-    path: "list-classes",
-    component: ListClassesComponent
+    path: "edit-teacher/:id",
+    component: CreateTeacherComponent
   },
   {
     path: "list-students",
@@ -69,6 +76,14 @@ const routes: Routes = [
   {
     path: "list-teachers",
     component: ListTeachersComponent
+  },
+  {
+    path: "list-classes",
+    component: ListClassesComponent
+  },
+  {
+    path: "list-subjects",
+    component: ListSubjectsComponent
   },
   {
     path: "subject-relation",
