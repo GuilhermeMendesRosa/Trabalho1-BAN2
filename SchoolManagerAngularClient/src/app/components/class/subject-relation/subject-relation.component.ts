@@ -58,6 +58,10 @@ export class SubjectRelationComponent implements OnInit {
     this.subjectTeacherRelationDTOs.push({subjectId: "", teacherId: ""});
   }
 
+  public removeSubject(): void {
+    this.subjectTeacherRelationDTOs.pop();
+  }
+
   public createSubjectRelation(): void {
     let createSubjectRelationDTO:CreateSubjectRelationDTO = {
       classId: this.selectedClass,

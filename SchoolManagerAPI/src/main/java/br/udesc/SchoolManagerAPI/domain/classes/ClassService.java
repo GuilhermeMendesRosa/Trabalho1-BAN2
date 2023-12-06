@@ -126,6 +126,8 @@ public class ClassService {
         Long classId = createSubjectRelationDTO.getClassId();
         Class aClass = this.classRepository.findById(classId).get();
 
+        this.subjectRelationRepository.deleteAllByaClass(aClass);
+
         for (SubjectTeacherRelationDTO dto : createSubjectRelationDTO.getSubjectTeacherRelationList()) {
             Subject subject = this.subjectRepository.findById(dto.getSubjectId()).get();
             Teacher teacher = this.teacherRepository.findById(dto.getTeacherId()).get();
@@ -138,4 +140,5 @@ public class ClassService {
             this.subjectRelationRepository.save(subjectRelation);
         }
     }
+
 }
