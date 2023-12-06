@@ -21,14 +21,14 @@ public abstract class BaseEntity {
     private Long id;
 
     @Version
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer version;
 
     @CreationTimestamp
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date createdAt;
 
     @UpdateTimestamp
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date updatedAt;
 }

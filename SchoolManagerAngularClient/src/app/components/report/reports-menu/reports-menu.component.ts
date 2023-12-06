@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ClassService } from 'src/app/services/class.service';
-import { StudentService } from 'src/app/services/student.service';
-import { TeacherService } from 'src/app/services/teacher.service';
-import { ReportService } from './../../../services/report.service';
+import {Component, OnInit} from '@angular/core';
+import {ClassService} from 'src/app/services/class.service';
+import {StudentService} from 'src/app/services/student.service';
+import {TeacherService} from 'src/app/services/teacher.service';
+import {ReportService} from './../../../services/report.service';
 
 @Component({
   selector: 'app-reports-menu',
@@ -16,7 +16,8 @@ export class ReportsMenuComponent implements OnInit {
     private studentService: StudentService,
     private teacherService: TeacherService,
     private classService: ClassService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -49,4 +50,10 @@ export class ReportsMenuComponent implements OnInit {
     })
   }
 
+  generateRelationsReport() {
+    this.classService.relationsReport().subscribe(content => {
+      const filename = 'report.txt';
+      this.reportService.createTxtFile(content['report'], filename);
+    })
+  }
 }

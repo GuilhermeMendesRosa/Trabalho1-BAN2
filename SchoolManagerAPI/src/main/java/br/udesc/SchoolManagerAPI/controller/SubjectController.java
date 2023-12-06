@@ -33,4 +33,10 @@ public class SubjectController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        subjectService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

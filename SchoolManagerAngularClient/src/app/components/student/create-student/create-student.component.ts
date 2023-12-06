@@ -24,7 +24,7 @@ export class CreateStudentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.classService.findAll().subscribe(classes => {
+    this.classService.listAll().subscribe(classes => {
       this.classes = classes;
     })
 

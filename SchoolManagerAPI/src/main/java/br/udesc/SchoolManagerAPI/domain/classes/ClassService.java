@@ -87,6 +87,8 @@ public class ClassService {
         }
         Class aClass = this.classRepository.findById(classId).get();
 
+        subjectRelationRepository.deleteAllByaClass(aClass);
+
         Teacher teacherManager = aClass.getTeacherManager();
 
         if (teacherManager != null) {
@@ -126,6 +128,8 @@ public class ClassService {
         Long classId = createSubjectRelationDTO.getClassId();
         Class aClass = this.classRepository.findById(classId).get();
 
+        this.subjectRelationRepository.deleteAllByaClass(aClass);
+
         for (SubjectTeacherRelationDTO dto : createSubjectRelationDTO.getSubjectTeacherRelationList()) {
             Subject subject = this.subjectRepository.findById(dto.getSubjectId()).get();
             Teacher teacher = this.teacherRepository.findById(dto.getTeacherId()).get();
@@ -137,5 +141,34 @@ public class ClassService {
 
             this.subjectRelationRepository.save(subjectRelation);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public String relationsReport() {
+        String report = "Lista de Turmas e suas Matérias";
+        report += "\n";
+
+        List<Class> classes = classRepository.findAll();
+
+        for (Class aClass: classes) {
+            report += "----------------------------";
+            report += "\n";
+            report += aClass.getName() + ":";
+            report += "\n";
+
+            List<SubjectRelation> subjectRelations = subjectRelationRepository.findAllByaClass(aClass);
+
+            for (SubjectRelation subjectRelation: subjectRelations) {
+                report += "   " + subjectRelation.getSubject().getName() + " - " + subjectRelation.getTeacher().getName();
+                report += "\n";
+            }
+
+            report += "----------------------------";
+            report += "\n";
+        }
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("report", report);
+
+        return jsonObject.toString();
     }
 }

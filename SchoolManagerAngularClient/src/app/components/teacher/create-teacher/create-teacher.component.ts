@@ -1,9 +1,9 @@
-import { TeacherService } from '../../../services/teacher.service';
-import { Subject } from '../../../model/subject';
-import { SubjectService } from '../../../services/subject.service';
-import { Component, OnInit } from '@angular/core';
-import { Teacher } from 'src/app/model/teacher';
-import { ActivatedRoute, Router } from '@angular/router';
+import {TeacherService} from '../../../services/teacher.service';
+import {Subject} from '../../../model/subject';
+import {SubjectService} from '../../../services/subject.service';
+import {Component, OnInit} from '@angular/core';
+import {Teacher} from 'src/app/model/teacher';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-teacher',
@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CreateTeacherComponent implements OnInit {
 
-  public teacher: Teacher = { id: 0, name: "" };
+  public teacher: Teacher = {id: 0, name: ""};
   public subjects: Subject[] = [];
   public isEdit: boolean = false;
 
@@ -21,7 +21,8 @@ export class CreateTeacherComponent implements OnInit {
     private teacherService: TeacherService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.subjectService.list().subscribe(subjects => {
@@ -34,7 +35,9 @@ export class CreateTeacherComponent implements OnInit {
         this.teacherService.findById(params.get('id')).subscribe(teacher => {
           this.teacher.id = teacher.id;
           this.teacher.name = teacher.name;
-          this.teacher.subjectIds = teacher.subjectIds;
+          teacher.subjects?.forEach(subject => {
+            this.teacher.subjectIds?.push(subject.id);
+          });
         })
       }
     });

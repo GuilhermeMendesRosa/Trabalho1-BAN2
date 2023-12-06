@@ -14,4 +14,8 @@ public class SubjectService {
         subject.setName(name);
         subjectRepository.save(subject);
     }
+
+    public void delete(Long id) {
+        subjectRepository.deleteById(id);
+    }
 }
