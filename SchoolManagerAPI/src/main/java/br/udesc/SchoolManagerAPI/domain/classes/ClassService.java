@@ -87,6 +87,8 @@ public class ClassService {
         }
         Class aClass = this.classRepository.findById(classId).get();
 
+        subjectRelationRepository.deleteAllByaClass(aClass);
+
         Teacher teacherManager = aClass.getTeacherManager();
 
         if (teacherManager != null) {
