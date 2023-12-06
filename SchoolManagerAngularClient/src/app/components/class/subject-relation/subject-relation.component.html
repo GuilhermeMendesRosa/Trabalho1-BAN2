@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="form-container">
+        <h2>Relacionamento de Matérias</h2>
+        <form >
+          <div>
+            <select class="mb-3 row form-select" id="class" name="class" [(ngModel)]="selectedClass">
+              <option *ngFor="let class of classes" [value]="class.id">{{class.name}}</option>
+            </select>
+          <div class="mb-3 row" *ngFor="let relation of subjectTeacherRelationDTOs">
+            <div class="col-5">
+              <label for="subject" class="form-label">Matéria:</label>
+              <select class="form-select" id="subject" name="subjectId-{{relation.subjectId}}" [(ngModel)]="relation.subjectId">
+                <option *ngFor="let subject of subjects" [value]="subject.id.toString()">{{subject.name}}</option>
+              </select>
+            </div>
+            <div class="col-5">
+              <label for="teacher" class="form-label">Professor:</label>
+              <select class="form-select" id="teacher" name="teacherId-{{relation.teacherId}}" [(ngModel)]="relation.teacherId">
+                <option *ngFor="let teacher of mapSubjectTeachers.get(relation.subjectId)"
+                        [value]="teacher.id.toString()">{{teacher.name}}</option>
+              </select>
+            </div>
+          </div>
+          </div>
+        </form>
+        <button (click)="addSubject()" class="btn btn-primary">Adicionar Matéria</button>
+        <button (click)="createSubjectRelation()" class="btn btn-primary">Criar</button>
+      </div>
+    </div>
+  </div>
+</div>

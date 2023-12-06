@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ClassesMenuComponent } from './components/class/classes-menu/classes-menu.component';
-import { CreateClassComponent } from './components/class/create-class/create-class.component';
-import { ListClassesComponent } from './components/class/list-classes/list-classes.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { ReportsMenuComponent } from './components/report/reports-menu/reports-menu.component';
-import { CreateStudentComponent } from './components/student/create-student/create-student.component';
-import { ListStudentsComponent } from './components/student/list-students/list-students.component';
-import { StudentsMenuComponent } from './components/student/students-menu/students-menu.component';
-import { CreateTeacherComponent } from './components/teacher/create-teacher/create-teacher.component';
-import { ListTeachersComponent } from './components/teacher/list-teachers/list-teachers.component';
-import { TeachersMenuComponent } from './components/teacher/teachers-menu/teachers-menu.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ClassesMenuComponent} from './components/class/classes-menu/classes-menu.component';
+import {CreateClassComponent} from './components/class/create-class/create-class.component';
+import {ListClassesComponent} from './components/class/list-classes/list-classes.component';
+import {MenuComponent} from './components/menu/menu.component';
+import {ReportsMenuComponent} from './components/report/reports-menu/reports-menu.component';
+import {CreateStudentComponent} from './components/student/create-student/create-student.component';
+import {ListStudentsComponent} from './components/student/list-students/list-students.component';
+import {StudentsMenuComponent} from './components/student/students-menu/students-menu.component';
+import {CreateTeacherComponent} from './components/teacher/create-teacher/create-teacher.component';
+import {ListTeachersComponent} from './components/teacher/list-teachers/list-teachers.component';
+import {TeachersMenuComponent} from './components/teacher/teachers-menu/teachers-menu.component';
+import {SubjectRelationComponent} from "./components/class/subject-relation/subject-relation.component";
 
 const routes: Routes = [
   {
@@ -69,10 +70,15 @@ const routes: Routes = [
     path: "list-teachers",
     component: ListTeachersComponent
   },
+  {
+    path: "subject-relation",
+    component: SubjectRelationComponent
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

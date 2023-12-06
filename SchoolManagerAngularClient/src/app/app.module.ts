@@ -17,6 +17,7 @@ import { ListStudentsComponent } from './components/student/list-students/list-s
 import { ListTeachersComponent } from './components/teacher/list-teachers/list-teachers.component';
 import { ListClassesComponent } from './components/class/list-classes/list-classes.component';
 import { ReportsMenuComponent } from './components/report/reports-menu/reports-menu.component';
+import { SubjectRelationComponent } from './components/class/subject-relation/subject-relation.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ReportsMenuComponent } from './components/report/reports-menu/reports-m
     ListTeachersComponent,
     ListClassesComponent,
     ReportsMenuComponent,
+    SubjectRelationComponent,
   ],
   imports: [
     BrowserModule,
