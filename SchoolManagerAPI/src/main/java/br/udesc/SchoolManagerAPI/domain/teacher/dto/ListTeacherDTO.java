@@ -1,6 +1,7 @@
 package br.udesc.SchoolManagerAPI.domain.teacher.dto;
 
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
+import br.udesc.SchoolManagerAPI.domain.subject.dto.SubjectDTO;
 import br.udesc.SchoolManagerAPI.domain.teacher.Teacher;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class ListTeacherDTO {
 
     private Long id;
     private String name;
-    private List<Long> subjectIds;
+    private List<SubjectDTO> subjects;
     private String className;
 
     public ListTeacherDTO(Teacher teacher) {
@@ -26,7 +27,7 @@ public class ListTeacherDTO {
 
         List<Subject> subjects = teacher.getSubjects();
         if (subjects != null && !subjects.isEmpty()) {
-            this.subjectIds = subjects.stream().map(subject -> subject.getId()).toList();
+            this.subjects = subjects.stream().map(SubjectDTO::new).toList();
         }
 
         if (teacher.getManagedClass() != null) {

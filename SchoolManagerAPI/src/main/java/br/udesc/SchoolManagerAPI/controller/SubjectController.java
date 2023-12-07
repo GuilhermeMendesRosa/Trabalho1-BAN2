@@ -3,6 +3,8 @@ package br.udesc.SchoolManagerAPI.controller;
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
 import br.udesc.SchoolManagerAPI.domain.subject.SubjectRepository;
 import br.udesc.SchoolManagerAPI.domain.subject.SubjectService;
+import br.udesc.SchoolManagerAPI.domain.subject.dto.SubjectDTO;
+import br.udesc.SchoolManagerAPI.domain.subject.SubjectService;
 import br.udesc.SchoolManagerAPI.domain.subject.dto.CreateSubjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +15,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/subject")
 public class SubjectController {
-
-    @Autowired
-    private SubjectService subjectService;
     @Autowired
     private SubjectRepository subjectRepository;
 
-    @PostMapping
-    public ResponseEntity create(@RequestBody CreateSubjectDTO subjectDTO) {
-        subjectService.save(subjectDTO.getName());
-
-        return ResponseEntity.ok(null);
-    }
+    @Autowired
+    private SubjectService subjectService;
 
     @GetMapping
     public ResponseEntity<List<Subject>> getAll() {
@@ -32,4 +27,17 @@ public class SubjectController {
 
         return ResponseEntity.ok(subjectList);
     }
+
+    @PostMapping
+    public ResponseEntity create(@RequestBody SubjectDTO subjectDTO) {
+        subjectService.save(subjectDTO.getName());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        subjectService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

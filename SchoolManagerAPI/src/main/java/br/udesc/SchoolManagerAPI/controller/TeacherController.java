@@ -33,8 +33,8 @@ public class TeacherController {
 
     @GetMapping("/list")
     public ResponseEntity listAll() {
-        List<ListTeacherDTO> noManagingTeachers = this.teacherService.listAll();
-        return ResponseEntity.ok(noManagingTeachers);
+        List<ListTeacherDTO> teacherDTOS = this.teacherService.listAll();
+        return ResponseEntity.ok(teacherDTOS);
     }
 
     @GetMapping("/{id}")

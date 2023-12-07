@@ -4,6 +4,10 @@ import br.udesc.SchoolManagerAPI.domain.classes.dto.ClassDTO;
 import br.udesc.SchoolManagerAPI.domain.student.StudentRepository;
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
 import br.udesc.SchoolManagerAPI.domain.subject.SubjectRepository;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.SubjectRelation;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.SubjectRelationRepository;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.dto.CreateSubjectRelationDTO;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.dto.SubjectTeacherRelationDTO;
 import br.udesc.SchoolManagerAPI.domain.teacher.Teacher;
 import br.udesc.SchoolManagerAPI.domain.teacher.TeacherRepository;
 import br.udesc.SchoolManagerAPI.utils.SchoolManagerUtils;
@@ -26,6 +30,8 @@ public class ClassService {
     private SubjectRepository subjectRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private SubjectRelationRepository subjectRelationRepository;
 
     public void create(ClassDTO classDTO) {
         Class aClass = new Class();
@@ -80,6 +86,8 @@ public class ClassService {
         }
         Class aClass = this.classRepository.findById(classId).get();
 
+        subjectRelationRepository.deleteAllByaClass(aClass);
+
         Teacher teacherManager = aClass.getTeacherManager();
 
         if (teacherManager != null) {
@@ -113,5 +121,61 @@ public class ClassService {
         }
 
         this.classRepository.save(aClass);
+    }
+
+    public void doSubjectRelation(CreateSubjectRelationDTO createSubjectRelationDTO) {
+        Long classId = createSubjectRelationDTO.getClassId();
+        Class aClass = this.classRepository.findById(classId).get();
+
+        if (createSubjectRelationDTO.getSubjectTeacherRelationList().isEmpty()) {
+            this.subjectRelationRepository.deleteAllByaClass(aClass);
+        }
+
+        for (SubjectTeacherRelationDTO dto : createSubjectRelationDTO.getSubjectTeacherRelationList()) {
+            Subject subject = this.subjectRepository.findById(dto.getSubjectId()).get();
+            Teacher teacher = this.teacherRepository.findById(dto.getTeacherId()).get();
+
+            boolean relationExists = this.subjectRelationRepository.existsByaClassAndTeacherAndSubject(aClass, teacher, subject);
+
+            if (relationExists) {
+                continue;
+            }
+
+            SubjectRelation subjectRelation = new SubjectRelation();
+            subjectRelation.setAClass(aClass);
+            subjectRelation.setSubject(subject);
+            subjectRelation.setTeacher(teacher);
+
+            this.subjectRelationRepository.save(subjectRelation);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public String relationsReport() {
+        String report = "Lista de Turmas e suas Matérias";
+        report += "\n";
+
+        List<Class> classes = classRepository.findAll();
+
+        for (Class aClass : classes) {
+            report += "----------------------------";
+            report += "\n";
+            report += aClass.getName() + ":";
+            report += "\n";
+
+            List<SubjectRelation> subjectRelations = subjectRelationRepository.findAllByaClass(aClass);
+
+            for (SubjectRelation subjectRelation : subjectRelations) {
+                report += "   " + subjectRelation.getSubject().getName() + " - " + subjectRelation.getTeacher().getName();
+                report += "\n";
+            }
+
+            report += "----------------------------";
+            report += "\n";
+        }
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("report", report);
+
+        return jsonObject.toString();
     }
 }

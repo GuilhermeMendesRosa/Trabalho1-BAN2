@@ -5,7 +5,41 @@
 4. NPM
 
 ### Instruções:
-#### Rodar os dois projetos via Docker:
+#### Linux:
+1. Instalação docker & docker-compose (caso ainda não tenha)
+```
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker $USER
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+2. Subir contâiners
+```
+sudo docker-compose up
+```
+
+#### WINDOWS:
+1. Instalação docker & docker-compose (caso ainda não tenha)
+Baixe e instale o Docker Desktop através do <a href="https://www.docker.com/products/docker-desktop">site oficial</a>.
+
+    Siga as instruções de instalação fornecidas pelo instalador.
+Comandos para instalar o Docker Compose no Windows:
+Baixe e instale o Docker Compose seguindo as instruções do <a href="https://docs.docker.com/compose/install/">site oficial</a>.
+
+    Certifique-se de adicionar o Docker Compose ao PATH durante a instalação.
+Comandos para executar o Docker Compose no Windows:
+Abra o Prompt de Comando ou PowerShell.
+
+    Navegue até o diretório onde está o seu arquivo docker-compose.yml.
+
+    Execute o seguinte comando para subir os contêineres definidos no arquivo docker-compose.yml:
+
+2. Subir contâiners
 ```
 sudo docker-compose up
 ```

@@ -17,6 +17,10 @@ import { ListStudentsComponent } from './components/student/list-students/list-s
 import { ListTeachersComponent } from './components/teacher/list-teachers/list-teachers.component';
 import { ListClassesComponent } from './components/class/list-classes/list-classes.component';
 import { ReportsMenuComponent } from './components/report/reports-menu/reports-menu.component';
+import { SubjectRelationComponent } from './components/class/subject-relation/subject-relation.component';
+import { SubjectsMenuComponent } from './components/subject/subjects-menu/subjects-menu.component';
+import { CreateSubjectComponent } from './components/subject/create-subject/create-subject.component';
+import { ListSubjectsComponent } from './components/subject/list-subjects/list-subjects.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,10 @@ import { ReportsMenuComponent } from './components/report/reports-menu/reports-m
     ListTeachersComponent,
     ListClassesComponent,
     ReportsMenuComponent,
+    SubjectRelationComponent,
+    SubjectsMenuComponent,
+    CreateSubjectComponent,
+    ListSubjectsComponent,
   ],
   imports: [
     BrowserModule,

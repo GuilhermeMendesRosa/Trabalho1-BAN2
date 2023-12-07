@@ -2,6 +2,7 @@ package br.udesc.SchoolManagerAPI.controller;
 
 import br.udesc.SchoolManagerAPI.domain.classes.ClassService;
 import br.udesc.SchoolManagerAPI.domain.classes.dto.ClassDTO;
+import br.udesc.SchoolManagerAPI.domain.subjectRelation.dto.CreateSubjectRelationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +60,13 @@ public class ClassController {
         } catch (Exception exception) {
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    @PostMapping("/subject-relation")
+    @Transactional
+    public ResponseEntity doSubjectRelation(@RequestBody CreateSubjectRelationDTO createSubjectRelationDTO) {
+        this.classService.doSubjectRelation(createSubjectRelationDTO);
+        return ResponseEntity.ok().build();
     }
 
 }

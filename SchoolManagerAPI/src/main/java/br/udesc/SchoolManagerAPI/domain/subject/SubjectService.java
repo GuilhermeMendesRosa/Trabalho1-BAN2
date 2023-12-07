@@ -7,11 +7,15 @@ import org.springframework.stereotype.Service;
 public class SubjectService {
 
     @Autowired
-    SubjectRepository subjectRepository;
+    private SubjectRepository subjectRepository;
 
     public void save(String name) {
         Subject subject = new Subject();
         subject.setName(name);
-        subjectRepository.createSubject(subject.getName());
+        subjectRepository.save(subject);
+    }
+
+    public void delete(Long id) {
+        subjectRepository.deleteById(id);
     }
 }
