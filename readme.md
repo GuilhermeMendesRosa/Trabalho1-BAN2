@@ -43,25 +43,7 @@ Abra o Prompt de Comando ou PowerShell.
 ```
 sudo docker-compose up
 ```
-Ou
-#### Back-end:
-1. Criar o schema (Não é necessário rodar o dump visto que o framework ORM (Hibernate) fará a criação da estrutura)
-```
-create schema school_manager
-```
-2. Compilar e rodar pelo maven
-```
-$ mvn clean install
-$ mvn spring-boot:run
-```
-#### Front-end
 
-```
-$cd C:\Code\Trabalho1-BAN2\SchoolManagerAngularClient
-$ npm install -g @angular/cli
-$ npm i
-$ npm start
-```
 
 ### Credits
 https://github.com/jpdev01
