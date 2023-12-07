@@ -128,11 +128,19 @@ public class ClassService {
         Long classId = createSubjectRelationDTO.getClassId();
         Class aClass = this.classRepository.findById(classId).get();
 
-        this.subjectRelationRepository.deleteAllByaClass(aClass);
+        if (createSubjectRelationDTO.getSubjectTeacherRelationList().isEmpty()) {
+            this.subjectRelationRepository.deleteAllByaClass(aClass);
+        }
 
         for (SubjectTeacherRelationDTO dto : createSubjectRelationDTO.getSubjectTeacherRelationList()) {
             Subject subject = this.subjectRepository.findById(dto.getSubjectId()).get();
             Teacher teacher = this.teacherRepository.findById(dto.getTeacherId()).get();
+
+            boolean relationExists = this.subjectRelationRepository.existsByaClassAndTeacherAndSubject(aClass, teacher, subject);
+
+            if (relationExists) {
+                continue;
+            }
 
             SubjectRelation subjectRelation = new SubjectRelation();
             subjectRelation.setAClass(aClass);
@@ -150,7 +158,7 @@ public class ClassService {
 
         List<Class> classes = classRepository.findAll();
 
-        for (Class aClass: classes) {
+        for (Class aClass : classes) {
             report += "----------------------------";
             report += "\n";
             report += aClass.getName() + ":";
@@ -158,7 +166,7 @@ public class ClassService {
 
             List<SubjectRelation> subjectRelations = subjectRelationRepository.findAllByaClass(aClass);
 
-            for (SubjectRelation subjectRelation: subjectRelations) {
+            for (SubjectRelation subjectRelation : subjectRelations) {
                 report += "   " + subjectRelation.getSubject().getName() + " - " + subjectRelation.getTeacher().getName();
                 report += "\n";
             }
