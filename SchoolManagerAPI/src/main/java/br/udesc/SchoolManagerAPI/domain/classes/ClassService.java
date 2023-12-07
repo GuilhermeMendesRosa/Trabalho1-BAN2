@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClassService {
@@ -43,23 +44,21 @@ public class ClassService {
         if (teacherManagerId != null) {
             Teacher teacherManager = teacherRepository.findById(teacherManagerId).get();
             aClass.setTeacherManager(teacherManager);
-            classRepository.save(aClass);
+            classRepository.create(aClass.getName(), aClass.getAcademicCategory(), aClass.getTeacherManager().getId(), aClass.getSubjects().stream().map(Subject::getId).collect(Collectors.toList()));
 
             teacherManager.setManagedClass(aClass);
-            teacherRepository.save(teacherManager);
+            teacherRepository.setManagedClass(teacherManager.getId(), teacherManager.getManagedClass().getId());
         } else {
-            classRepository.save(aClass);
+            classRepository.create(aClass.getName(), aClass.getAcademicCategory(), null, aClass.getSubjects().stream().map(Subject::getId).collect(Collectors.toList()));
         }
     }
 
     @Transactional(readOnly = true)
     public List<ClassDTO> findAll() {
-        List<ClassDTO> classDTOS = this.classRepository.findAll()
+        return this.classRepository.findAll()
                 .stream()
-                .map(aClass -> new ClassDTO(aClass))
+                .map(ClassDTO::new)
                 .toList();
-
-        return classDTOS;
     }
 
     public ClassDTO findById(Long id) {

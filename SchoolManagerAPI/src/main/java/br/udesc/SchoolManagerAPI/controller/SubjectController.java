@@ -4,6 +4,8 @@ import br.udesc.SchoolManagerAPI.domain.subject.Subject;
 import br.udesc.SchoolManagerAPI.domain.subject.SubjectRepository;
 import br.udesc.SchoolManagerAPI.domain.subject.SubjectService;
 import br.udesc.SchoolManagerAPI.domain.subject.dto.SubjectDTO;
+import br.udesc.SchoolManagerAPI.domain.subject.SubjectService;
+import br.udesc.SchoolManagerAPI.domain.subject.dto.CreateSubjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/subject")
 public class SubjectController {
-
     @Autowired
     private SubjectRepository subjectRepository;
 
@@ -22,9 +23,9 @@ public class SubjectController {
 
     @GetMapping
     public ResponseEntity<List<Subject>> getAll() {
-        List<Subject> all = subjectRepository.findAll();
+        List<Subject> subjectList = subjectRepository.getAll();
 
-        return ResponseEntity.ok(all);
+        return ResponseEntity.ok(subjectList);
     }
 
     @PostMapping

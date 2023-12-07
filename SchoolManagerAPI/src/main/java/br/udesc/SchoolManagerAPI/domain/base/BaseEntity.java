@@ -1,34 +1,27 @@
 package br.udesc.SchoolManagerAPI.domain.base;
 
-import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.util.Date;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
 
 @Getter
 @Setter
-@MappedSuperclass
 @EqualsAndHashCode(of = "id")
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(insertable = false, updatable = false)
+    @GeneratedValue
     private Long id;
 
-    @Version
-    @Column(nullable = true)
-    private Integer version;
+    private Long version;
 
-    @CreationTimestamp
-    @Column(nullable = true)
-    private Date createdAt;
+    private Long createdAt;
 
-    @UpdateTimestamp
-    @Column(nullable = true)
-    private Date updatedAt;
+    private Long updatedAt;
 }

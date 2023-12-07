@@ -1,5 +1,6 @@
 package br.udesc.SchoolManagerAPI.domain.teacher;
 
+import br.udesc.SchoolManagerAPI.domain.base.BaseEntity;
 import br.udesc.SchoolManagerAPI.domain.classes.Class;
 import br.udesc.SchoolManagerAPI.domain.classes.ClassRepository;
 import br.udesc.SchoolManagerAPI.domain.subject.Subject;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherService {
@@ -24,18 +26,21 @@ public class TeacherService {
     @Autowired
     private ClassRepository classRepository;
 
-    public void create(TeacherDTO teacherDTO) {
+    public Teacher create(TeacherDTO teacherDTO) {
         List<Subject> subjects = subjectRepository.findAllById(teacherDTO.getSubjectIds());
         Teacher teacher = new Teacher(teacherDTO.getName(), subjects);
 
-        this.teacherRepository.save(teacher);
+        return this.teacherRepository.createTeacher(
+                teacher.getName(),
+                subjects.stream().map(BaseEntity::getId).collect(Collectors.toList())
+        );
     }
 
     @Transactional(readOnly = true)
     public List<TeacherDTO> findNoManagingTeachers() {
         List<TeacherDTO> teacherDTOS = this.teacherRepository.findNoManagingTeachers()
                 .stream()
-                .map(teacher -> new TeacherDTO(teacher))
+                .map(TeacherDTO::new)
                 .toList();
 
         return teacherDTOS;
@@ -45,7 +50,7 @@ public class TeacherService {
     public List<ListTeacherDTO> listAll() {
         List<ListTeacherDTO> listTeacherDTOS = this.teacherRepository.findAll()
                 .stream()
-                .map(teacher -> new ListTeacherDTO(teacher))
+                .map(ListTeacherDTO::new)
                 .toList();
 
         return listTeacherDTOS;
@@ -54,18 +59,16 @@ public class TeacherService {
     @Transactional(readOnly = true)
     public ListTeacherDTO findById(Long id) {
         Teacher teacher = this.teacherRepository.findById(id).get();
-        ListTeacherDTO listTeacherDTO = new ListTeacherDTO(teacher);
-
-        return listTeacherDTO;
+        return new ListTeacherDTO(teacher);
     }
 
     @Transactional(readOnly = true)
     public String report() {
         String name = "Lista de Professores e Turmas que Eles Gerenciam";
         int colums = 2;
-        List<Object[]> rows = this.teacherRepository.getTeacherClassInfo();
+        List<TeacherClassReportVO> reportList = this.teacherRepository.getTeacherClassInfo();
 
-        String report = SchoolManagerUtils.buildReport(name, rows, colums);
+        String report = SchoolManagerUtils.buildReport(name, TeacherClassReportVO.getRows(reportList), colums);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("report", report);
@@ -82,11 +85,10 @@ public class TeacherService {
             managedClass.setTeacherManager(null);
             teacher.setManagedClass(null);
 
-            this.classRepository.save(managedClass);
-            this.teacherRepository.save(teacher);
+            this.classRepository.removeTeacherManager(managedClass.getId());
         }
 
-        this.teacherRepository.deleteById(teacherId);
+        this.teacherRepository.delete(teacherId);
     }
 
     public void edit(Long id, TeacherDTO teacherDTO) {
@@ -97,5 +99,6 @@ public class TeacherService {
         if (subjectIds != null && !subjectIds.isEmpty()) {
             teacher.setSubjects(this.subjectRepository.findAllById(subjectIds));
         }
+        // TODO: Falta um update?
     }
 }
