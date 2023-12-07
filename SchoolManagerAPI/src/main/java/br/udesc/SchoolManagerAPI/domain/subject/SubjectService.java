@@ -12,7 +12,7 @@ public class SubjectService {
     public void save(String name) {
         Subject subject = new Subject();
         subject.setName(name);
-        subjectRepository.save(subject);
+        subjectRepository.createSubject(subject.getName());
     }
 
     public void delete(Long id) {
